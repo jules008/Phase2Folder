@@ -1,7 +1,6 @@
 Attribute VB_Name = "ModProjectInOut"
-Const PROJECT_FILE_NAME = "Phase 2 Progress Master Spreadsheet"
-Const EXPORT_FILE_PATH = "\\lincsfire.lincolnshire.gov.uk\folderredir$\Documents\julian.turner\Documents\RDS Project\Phase 2\Master Spreadsheet\Library\Dev\"
-    
+Const EXPORT_FILE_PATH As String = "\\lincsfire.lincolnshire.gov.uk\folderredir$\Documents\julian.turner\Documents\RDS Project\Phase 2\Master Spreadsheet\Library\Dev\"
+Const PROJECT_FILE_NAME As String = "Phase 2 Progress Master Spreadsheet"
 
 Public Sub ExportModules()
     Dim ExportYN As Boolean
@@ -14,7 +13,7 @@ Public Sub ExportModules()
     SourceBookName = ActiveWorkbook.Name
     Set SourceBook = Application.Workbooks(SourceBookName)
     
-    If Not Dir(EXPORT_FILE_PATH & "*.*") = "" Then
+    If Dir(EXPORT_FILE_PATH & "*.*") = "" Then
         Kill EXPORT_FILE_PATH & "*.*"
     End If
     
@@ -79,17 +78,17 @@ Public Sub ImportModules()
     ''' Import all the code modules in the specified path
     ''' to the ActiveWorkbook.
     For Each FileObj In FSO.GetFolder(ImportFilePath).Files
-    
+        Debug.Print FileObj.Name
+        
         If (FSO.GetExtensionName(FileObj.Name) = "cls") Or _
             (FSO.GetExtensionName(FileObj.Name) = "frm") Or _
-            (FSO.GetExtensionName(FileObj.Name) = "bas") Then
+            (FSO.GetExtensionName(FileObj.Name) = "bas") And _
+            FileObj.Name <> "ModProjectInOut.bas" Then
             VBModules.Import FileObj.Path
         End If
         
     Next FileObj
-    
-    
-    MsgBox "Import is ready", vbInformation, APP_NAME
+    Debug.Print "End of import"
 End Sub
  
 Public Sub RemoveAllModules()
@@ -123,8 +122,6 @@ Public Sub ExportDBTables()
     Dim TableExport As TableDef
     Dim ExportFldr As String
         
-    DBConnect
-    
     For Each TableExport In DB.TableDefs
         If Not (TableExport.Name Like "MSys*" Or TableExport.Name Like "~*") Then
             
@@ -305,49 +302,60 @@ Public Sub CopyShtCodeModule()
     Dim VBModule As VBIDE.VBComponent
     Dim VBCodeMod As VBIDE.CodeModule
     Dim i As Integer
+
+    If ModuleExists("Thisworkbook1") Then
+        Set SourceMod = ThisWorkbook.VBProject.VBComponents("Thisworkbook1")
+        Set DestMod = ThisWorkbook.VBProject.VBComponents("Thisworkbook")
     
-    Set SourceMod = ThisWorkbook.VBProject.VBComponents("Thisworkbook1")
-    Set DestMod = ThisWorkbook.VBProject.VBComponents("Thisworkbook")
-
-    DestMod.CodeModule.DeleteLines 1, DestMod.CodeModule.CountOfLines
-    DestMod.CodeModule.AddFromString SourceMod.CodeModule.Lines(1, SourceMod.CodeModule.CountOfLines)
-
+        DestMod.CodeModule.DeleteLines 1, DestMod.CodeModule.CountOfLines
+        DestMod.CodeModule.AddFromString SourceMod.CodeModule.Lines(1, SourceMod.CodeModule.CountOfLines)
+    End If
+    
     For Each VBModule In ThisWorkbook.VBProject.VBComponents
-        
+
         With VBModule
-            
-'            Debug.Print VBModule.Name
+
+            Debug.Print VBModule.Name
             If Left(.Name, 3) = "Sht" And .Type <> vbext_ct_Document Then
                 Set SourceMod = VBModule
-'                Debug.Print "Source: " & SourceMod.Name
-                
+                Debug.Print "Source: " & SourceMod.Name
+
                 For Each DestMod In ThisWorkbook.VBProject.VBComponents
-'                    Debug.Print DestMod.Name
+                    Debug.Print DestMod.Name
                     If Left(SourceMod.Name, Len(SourceMod.Name) - 1) = DestMod.Name Then
-'                        Debug.Print "Source: " & SourceMod.Name
-'                        Debug.Print " Dest: " & DestMod.Name
-                        
-                        DestMod.CodeModule.DeleteLines 1, DestMod.CodeModule.CountOfLines
-                        
-                        DestMod.CodeModule.AddFromString SourceMod.CodeModule.Lines(1, SourceMod.CodeModule.CountOfLines)
-                             
+                        Debug.Print "Source: " & SourceMod.Name
+                        Debug.Print " Dest: " & DestMod.Name
+
+                        If SourceMod.CodeModule.CountOfLines > 0 Then
+                            DestMod.CodeModule.DeleteLines 1, DestMod.CodeModule.CountOfLines
+    
+                            DestMod.CodeModule.AddFromString SourceMod.CodeModule.Lines(1, SourceMod.CodeModule.CountOfLines)
+                        End If
                     End If
                 Next
             End If
         End With
     Next
-        
+
     For Each VBModule In ThisWorkbook.VBProject.VBComponents
-        If Right(VBModule.Name, 1) = "1" Then
+        If Right(VBModule.Name, 1) = "1" And VBModule.Name <> "Sheet1" Then
             ThisWorkbook.VBProject.VBComponents.Remove VBModule
         End If
     Next VBModule
-    
-    
-    
+
+
+
     Set SourceMod = Nothing
     Set DestMod = Nothing
     Set VBModule = Nothing
     Set VBCodeMod = Nothing
 End Sub
 
+
+Public Function ModuleExists(ModuleName As String) As Boolean
+    Dim CodeModule As VBIDE.VBComponent
+ 
+    For Each CodeModule In ThisWorkbook.VBProject.VBComponents
+        If CodeModule.Name = ModuleName Then ModuleExists = True
+    Next
+End Function
