@@ -38,7 +38,7 @@ Public Sub Handler()
     On Error GoTo FatalErrHandler
     
     Set MasterBook = ActiveWorkbook
-    Set MasterSheet = MasterBook.Worksheets("Master")
+    Set MasterSheet = MasterBook.Worksheets("Master V4")
     Set UpdaterSheet = MasterBook.Worksheets("Updater")
     
     Set FSO = CreateObject("Scripting.FileSystemObject")
@@ -199,164 +199,46 @@ End Sub
 
 Public Sub TransferData()
       
-    'Module 1
-    'Diary
-    x = ProgressSheet.Range("y18")
-    x = x * 100
-    With UpdaterSheet.Range("A2")
-        .Value = x
-        .NumberFormat = "0"
-        .Interior.Color = RGB(255, 255, 153)
-        .Font.Bold = True
-    End With
-    
-    
-    'Observations
-    ProgressSheet.Range("c17:i17").Copy
-    UpdaterSheet.Range("B2:H2").PasteSpecial
+    'BA Module
+    ProgressSheet.Range("C17:N17").Copy
+    UpdaterSheet.Range("B2:M2").PasteSpecial
     
     'exercise
     ProgressSheet.Range("s17").Copy
     UpdaterSheet.Range("i2").PasteSpecial
     
-    
-    'Module 2
-    'Diary
-
-    x = ProgressSheet.Range("y23")
-    x = x * 100
-    With UpdaterSheet.Range("j2")
-        .Value = x
-        .NumberFormat = "0"
-        .Interior.Color = RGB(255, 255, 153)
-        .Font.Bold = True
-    End With
-    
-    'Observations
-    ProgressSheet.Range("c22:j22").Copy
-    UpdaterSheet.Range("k2:R2").PasteSpecial
+    'Extrication and resuce module
+    ProgressSheet.Range("C22:M22").Copy
+    UpdaterSheet.Range("O2:Y2").PasteSpecial
        
-    'exercise
-    ProgressSheet.Range("s22").Copy
-    UpdaterSheet.Range("s2").PasteSpecial
- 
-    'Module 3
-    'Diary
-    x = ProgressSheet.Range("y28")
-    x = x * 100
-    With UpdaterSheet.Range("t2")
-        .Value = x
-        .NumberFormat = "0"
-        .Interior.Color = RGB(255, 255, 153)
-        .Font.Bold = True
-    End With
-    
-    'Observations
-    ProgressSheet.Range("c27:s27").Copy
-    UpdaterSheet.Range("u2:ak2").PasteSpecial
+    'Pumps module
+    ProgressSheet.Range("C27:M27").Copy
+    UpdaterSheet.Range("AA2:AK2").PasteSpecial
        
-    'Module 4
-    'Diary
-    x = ProgressSheet.Range("y33")
-    x = x * 100
-    With UpdaterSheet.Range("Al2")
-        .Value = x
-        .NumberFormat = "0"
-        .Interior.Color = RGB(255, 255, 153)
-        .Font.Bold = True
-    End With
-    
-    'Observations
-    ProgressSheet.Range("c32:h32").Copy
-    UpdaterSheet.Range("am2:ar2").PasteSpecial
+    'Water Module
+    ProgressSheet.Range("C32:F32").Copy
+    UpdaterSheet.Range("AM2:AP2").PasteSpecial
+     
+    ' Working at Height Module
+    ProgressSheet.Range("C37:K37").Copy
+    UpdaterSheet.Range("AR2:AZ2").PasteSpecial
        
-    'exercise
-    ProgressSheet.Range("s32").Copy
-    UpdaterSheet.Range("as2").PasteSpecial
-    
-     'Module 5
-    'Diary
-    x = ProgressSheet.Range("y38")
-    x = x * 100
-    With UpdaterSheet.Range("At2")
-        .Value = x
-        .NumberFormat = "0"
-        .Interior.Color = RGB(255, 255, 153)
-        .Font.Bold = True
-    End With
-    
-    'Observations
-    ProgressSheet.Range("c37:d37").Copy
-    UpdaterSheet.Range("au2:av2").PasteSpecial
-       
-    'snatch rescue exercise
-    ProgressSheet.Range("s37").Copy
-    UpdaterSheet.Range("aw2").PasteSpecial
+    'Haz Mats Module
+    ProgressSheet.Range("C42:G42").Copy
+    UpdaterSheet.Range("BB2:BG2").PasteSpecial
 
-    'Observations
-    ProgressSheet.Range("e37:f37").Copy
-    UpdaterSheet.Range("ax2:ay2").PasteSpecial
+    'Communications Module
+    ProgressSheet.Range("C47:G47").Copy
+    UpdaterSheet.Range("BI2:BM2").PasteSpecial
 
-    'decontam exercise
-    ProgressSheet.Range("r37").Copy
-    UpdaterSheet.Range("az2").PasteSpecial
+    'Casualty Care Module
+    ProgressSheet.Range("J47").Copy
+    UpdaterSheet.Range("BO2").PasteSpecial
     
-    'Module 6
-    'Diary
-    x = ProgressSheet.Range("y43")
-    x = x * 100
-    With UpdaterSheet.Range("bA2")
-        .Value = x
-        .NumberFormat = "0"
-        .Interior.Color = RGB(255, 255, 153)
-        .Font.Bold = True
-    End With
+    'Misc Module
+    ProgressSheet.Range("N47:S47").Copy
+    UpdaterSheet.Range("BQ:BU").PasteSpecial
     
-    'Observations
-    ProgressSheet.Range("c42:d42").Copy
-    UpdaterSheet.Range("bb2:bc2").PasteSpecial
-       
-    'exercise
-    ProgressSheet.Range("s42").Copy
-    UpdaterSheet.Range("bd2").PasteSpecial
-    UpdaterSheet.Range("be2").Interior.Color = RGB(255, 255, 153)
-
-    'Module 7
-    
-    'Observations
-    ProgressSheet.Range("c47:j47").Copy
-    UpdaterSheet.Range("bf2:bm2").PasteSpecial
-    
-    'test for new V6 sheet
-    If ProgressSheet.Range("S1").Value = "Version 6" Then
-    
-        'exercise
-        ProgressSheet.Range("K47").Copy
-        UpdaterSheet.Range("bo2").PasteSpecial
-        
-        'test
-        ProgressSheet.Range("L47").Copy
-        UpdaterSheet.Range("bn2").PasteSpecial
-        
-    Else
-        'exercise
-        ProgressSheet.Range("r47").Copy
-        UpdaterSheet.Range("bo2").PasteSpecial
-        
-        'test
-        ProgressSheet.Range("s47").Copy
-        UpdaterSheet.Range("bn2").PasteSpecial
-    End If
-    
-    'Module 8
-    
-    'Observations
-    ProgressSheet.Range("n47:p47").Copy
-    UpdaterSheet.Range("bq2:bs2").PasteSpecial
-    
-    UpdaterSheet.Activate
-    
-
 End Sub
 
 Private Sub CmdUpdPrg_Click()

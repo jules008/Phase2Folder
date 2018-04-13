@@ -303,12 +303,17 @@ Public Sub CopyShtCodeModule()
     Dim VBCodeMod As VBIDE.CodeModule
     Dim i As Integer
 
-    If ModuleExists("Thisworkbook1") Then
+    If ModuleExists("ThisWorkbook1") Then
         Set SourceMod = ThisWorkbook.VBProject.VBComponents("Thisworkbook1")
         Set DestMod = ThisWorkbook.VBProject.VBComponents("Thisworkbook")
     
-        DestMod.CodeModule.DeleteLines 1, DestMod.CodeModule.CountOfLines
-        DestMod.CodeModule.AddFromString SourceMod.CodeModule.Lines(1, SourceMod.CodeModule.CountOfLines)
+        If DestMod.CodeModule.CountOfLines > 0 Then
+            DestMod.CodeModule.DeleteLines 1, DestMod.CodeModule.CountOfLines
+        End If
+        
+        If SourceMod.CodeModule.CountOfLines > 0 Then
+            DestMod.CodeModule.AddFromString SourceMod.CodeModule.Lines(1, SourceMod.CodeModule.CountOfLines)
+        End If
     End If
     
     For Each VBModule In ThisWorkbook.VBProject.VBComponents
