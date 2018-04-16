@@ -129,10 +129,10 @@ Public Sub EnterData()
     
     'backup current data
     MasterSheet.Activate
-    MasterSheet.Range("f" & CandidateRow & ":bx" & CandidateRow).Copy
+    MasterSheet.Range("F" & CandidateRow & ":CB" & CandidateRow).Copy
     UpdaterSheet.Activate
     UpdaterSheet.Range("A4").PasteSpecial
-    UpdaterSheet.Range("a1").Select
+    UpdaterSheet.Range("A1").Select
     
     'confirm change ok
     UpdaterSheet.Visible = xlSheetVisible
@@ -143,11 +143,11 @@ Public Sub EnterData()
     If ContinueYN = 6 Then
     
         'copy data
-        UpdaterSheet.Range("A2:bs2").Copy
+        UpdaterSheet.Range("A2:BW2").Copy
     
         'paste data into master
         MasterSheet.Activate
-        MasterSheet.Range("f" & CandidateRow).PasteSpecial
+        MasterSheet.Range("F" & CandidateRow).PasteSpecial
         
         
         'get overall progress
@@ -199,45 +199,111 @@ End Sub
 
 Public Sub TransferData()
       
+    'BA Theory
+    ProgressSheet.Range("Y16").Copy
+    With UpdaterSheet.Range("A2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
+    
     'BA Module
     ProgressSheet.Range("C17:N17").Copy
     UpdaterSheet.Range("B2:M2").PasteSpecial
-    
-    'exercise
-    ProgressSheet.Range("s17").Copy
-    UpdaterSheet.Range("i2").PasteSpecial
+        
+    'RTC Theory
+    ProgressSheet.Range("Y20").Copy
+    With UpdaterSheet.Range("N2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
     
     'Extrication and resuce module
     ProgressSheet.Range("C22:M22").Copy
     UpdaterSheet.Range("O2:Y2").PasteSpecial
        
+    'Pumps Theory
+    ProgressSheet.Range("Y24").Copy
+    With UpdaterSheet.Range("Z2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
+    
     'Pumps module
     ProgressSheet.Range("C27:M27").Copy
     UpdaterSheet.Range("AA2:AK2").PasteSpecial
        
+    'Water Theory
+    ProgressSheet.Range("Y28").Copy
+    With UpdaterSheet.Range("AL2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
+    
     'Water Module
     ProgressSheet.Range("C32:F32").Copy
     UpdaterSheet.Range("AM2:AP2").PasteSpecial
      
+    'WAH Theory
+    ProgressSheet.Range("Y32").Copy
+    With UpdaterSheet.Range("AQ2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
+    
     ' Working at Height Module
     ProgressSheet.Range("C37:K37").Copy
     UpdaterSheet.Range("AR2:AZ2").PasteSpecial
        
+    'Haz Mats Theory
+    ProgressSheet.Range("Y36").Copy
+    With UpdaterSheet.Range("BA2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
+    
     'Haz Mats Module
-    ProgressSheet.Range("C42:G42").Copy
+    ProgressSheet.Range("C42:H42").Copy
     UpdaterSheet.Range("BB2:BG2").PasteSpecial
 
+    'Comms Theory
+    ProgressSheet.Range("Y40").Copy
+    With UpdaterSheet.Range("BH2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
+    
     'Communications Module
     ProgressSheet.Range("C47:G47").Copy
     UpdaterSheet.Range("BI2:BM2").PasteSpecial
 
+    'Cas Care Theory
+    ProgressSheet.Range("Y44").Copy
+    With UpdaterSheet.Range("BN2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
+    
     'Casualty Care Module
     ProgressSheet.Range("J47").Copy
     UpdaterSheet.Range("BO2").PasteSpecial
     
+    'Misc Theory
+    ProgressSheet.Range("P45").Copy
+    With UpdaterSheet.Range("BP2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
+    
     'Misc Module
     ProgressSheet.Range("N47:S47").Copy
-    UpdaterSheet.Range("BQ:BU").PasteSpecial
+    UpdaterSheet.Range("BQ2:BV2").PasteSpecial
+    
+    'MOK Theory
+    ProgressSheet.Range("Y47").Copy
+    With UpdaterSheet.Range("BW2")
+        .PasteSpecial xlPasteValues
+        .PasteSpecial xlPasteFormats
+    End With
     
 End Sub
 
