@@ -137,6 +137,7 @@ Public Sub EnterData()
     'confirm change ok
     UpdaterSheet.Visible = xlSheetVisible
     UpdaterSheet.Activate
+    ActiveWindow.Zoom = 80
     ContinueYN = MsgBox("Are the changes correct?", vbYesNo, "Confirm Changes")
     UpdaterSheet.Visible = xlSheetHidden
 
@@ -165,6 +166,7 @@ Public Sub EnterData()
         MyCell.Value = Progress
         
         'add comment
+        MasterSheet.Activate
         MyCell.AddComment (Format(Now, "mmm yy"))
         
         'add date
@@ -204,7 +206,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("A2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
     'BA Module
@@ -216,7 +218,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("N2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
     'Extrication and resuce module
@@ -228,7 +230,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("Z2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
     'Pumps module
@@ -240,7 +242,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("AL2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
     'Water Module
@@ -252,7 +254,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("AQ2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
     ' Working at Height Module
@@ -264,7 +266,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BA2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
     'Haz Mats Module
@@ -276,7 +278,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BH2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
     'Communications Module
@@ -288,7 +290,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BN2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
     'Casualty Care Module
@@ -300,7 +302,8 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BP2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        If ProgressSheet.Range("P45") <> 1 Then .Interior.Color = RGB(183, 222, 232)
+        .Font.Size = 10
     End With
     
     'Misc Module
@@ -312,7 +315,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BW2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
-        .Font.Size = 12
+        .Font.Size = 10
     End With
     
 End Sub
