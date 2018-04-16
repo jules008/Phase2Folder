@@ -204,6 +204,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("A2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     'BA Module
@@ -215,6 +216,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("N2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     'Extrication and resuce module
@@ -226,6 +228,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("Z2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     'Pumps module
@@ -237,6 +240,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("AL2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     'Water Module
@@ -248,6 +252,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("AQ2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     ' Working at Height Module
@@ -259,6 +264,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BA2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     'Haz Mats Module
@@ -270,6 +276,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BH2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     'Communications Module
@@ -281,6 +288,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BN2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     'Casualty Care Module
@@ -292,6 +300,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BP2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
     'Misc Module
@@ -303,6 +312,7 @@ Public Sub TransferData()
     With UpdaterSheet.Range("BW2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
+        .Font.Size = 12
     End With
     
 End Sub
