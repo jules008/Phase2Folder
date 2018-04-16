@@ -154,7 +154,7 @@ Public Sub EnterData()
         ProgressSheet.Activate
         Progress = ProgressSheet.Range("w51") * 100
         
-        Set ProgressArea = MasterSheet.Range("by" & CandidateRow & ":cl" & CandidateRow)
+        Set ProgressArea = MasterSheet.Range("CC" & CandidateRow & ":CP" & CandidateRow)
         'ProgressArea.Select
         
         For Each MyCell In ProgressArea
@@ -168,19 +168,19 @@ Public Sub EnterData()
         MyCell.AddComment (Format(Now, "mmm yy"))
         
         'add date
-        MasterSheet.Range("cm" & CandidateRow).Value = Now()
+        MasterSheet.Range("CQ" & CandidateRow).Value = Now()
         
         
         'check entry
         MasterSheet.Activate
-        MasterSheet.Range("cm1").Select
+        MasterSheet.Range("A1").Select
         ActiveWindow.Zoom = 70
         
         ContinueYN = MsgBox("Happy?", vbYesNo)
         
         'remove filter
         With MasterSheet
-            .Range("A:CL").AutoFilter Field:=4
+            .Range("A:CQ").AutoFilter Field:=4
             .Range("g3").Select
         End With
         
@@ -317,59 +317,60 @@ Public Sub SaveFile()
     Dim Fls As Files
     Dim FilePath As String
     
-    MasterBook.Save
-    
-    FilePath = "\\imp.lincolnshire.gov.uk\DavWWWRoot\contentserverdav\nodes\21592528\Phase 2 FF Development\"
-    Set Fldrs = FSO.GetFolder(FilePath).SubFolders
-    
-    'build filename
-    FileName = "Phase 2 Progress Master Spreadsheet.xlsx"
-    
-    'save copy
-    Application.DisplayAlerts = False
-    
-    'save copy on t drive
-    MasterSheet.Copy
-    ActiveWorkbook.SaveAs FilePath & "\" & " " & FileName
-    ActiveWorkbook.Close
-    'save archive MasterSheet
-    
-    'MasterBook.SaveAs FileName:=MasterSheetLocation & "\" & FileName, FileFormat:=xlOpenXMLWorkbook
-    
-    
-    'save master copy
-    'MasterBook.SaveAs FileName:=MasterSheetLocation & "Phase 2 Progress Master Spreadsheet.xlsm", FileFormat:=xlOpenXMLWorkbookMacroEnabled
-    
-    
-    Application.DisplayAlerts = True
-    
-    'look for station folder
-    For Each Fld In Fldrs
-        Debug.Print Left(Fld.Name, 2)
+    If Application.UserName <> "Julian Turner" Then
+        MasterBook.Save
         
-        If Left(Fld.Name, 2) = Station Then Exit For
+        FilePath = "\\imp.lincolnshire.gov.uk\DavWWWRoot\contentserverdav\nodes\21592528\Phase 2 FF Development\"
+        Set Fldrs = FSO.GetFolder(FilePath).SubFolders
         
-    Next
+        'build filename
+        FileName = "Phase 2 Progress Master Spreadsheet.xlsx"
+        
+        'save copy
+        Application.DisplayAlerts = False
+        
+        'save copy on t drive
+        MasterSheet.Copy
+        ActiveWorkbook.SaveAs FilePath & "\" & " " & FileName
+        ActiveWorkbook.Close
+        'save archive MasterSheet
+        
+        'MasterBook.SaveAs FileName:=MasterSheetLocation & "\" & FileName, FileFormat:=xlOpenXMLWorkbook
+        
+        
+        'save master copy
+        'MasterBook.SaveAs FileName:=MasterSheetLocation & "Phase 2 Progress Master Spreadsheet.xlsm", FileFormat:=xlOpenXMLWorkbookMacroEnabled
+        
+        
+        Application.DisplayAlerts = True
+        
+        'look for station folder
+        For Each Fld In Fldrs
+            Debug.Print Left(Fld.Name, 2)
+            
+            If Left(Fld.Name, 2) = Station Then Exit For
+            
+        Next
+        
+        FilePath = FilePath & Fld.Name
     
-    FilePath = FilePath & Fld.Name
-
-    'save progress sheet
-    Application.DisplayAlerts = False
-    
-    FilePath = FilePath & "\" & Format(Now, "yyyy-mm-dd") & " " & CandidateName & " " & CandidateNo & " v4" & FileExt
-    
-    ProgressBook.SaveAs (FilePath)
-    ProgressBook.Close
-    Application.DisplayAlerts = True
-    
-     With Application.FileDialog(msoFileDialogOpen)
-        .InitialFileName = FilePath
-        .AllowMultiSelect = True
-        .Filters.Add "All Files (*.*)", "*.*"
-        .Title = "Move old file to archive"
-        .Show
-    End With
-    
+        'save progress sheet
+        Application.DisplayAlerts = False
+        
+        FilePath = FilePath & "\" & Format(Now, "yyyy-mm-dd") & " " & CandidateName & " " & CandidateNo & " v4" & FileExt
+        
+        ProgressBook.SaveAs (FilePath)
+        ProgressBook.Close
+        Application.DisplayAlerts = True
+        
+         With Application.FileDialog(msoFileDialogOpen)
+            .InitialFileName = FilePath
+            .AllowMultiSelect = True
+            .Filters.Add "All Files (*.*)", "*.*"
+            .Title = "Move old file to archive"
+            .Show
+        End With
+    End If
 
 End Sub
 
