@@ -8,14 +8,15 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 
-Const WorkingDir = "\\imp.lincolnshire.gov.uk\DavWWWRoot\contentserverdav\nodes\22151336\Working Folder\"
-Const MasterSheetLocation = "\\imp.lincolnshire.gov.uk\DavWWWRoot\contentserverdav\nodes\21592528\Workforce Development\Phase 2 Development Folder\STATS\"
+Const WorkingDir = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
+Const MasterSheetLocation = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
     
     Dim FSO As New FileSystemObject
     Dim ProgressSheet As Worksheet
     Dim ProgressBook As Workbook
     Dim MasterBook As Workbook
-    Dim MasterSheet As Worksheet
+    Dim MasterSheetV3 As Worksheet
+    Dim MasterSheetV4 As Worksheet
     Dim UpdaterSheet As Worksheet
     Dim ProgressArea As Range
     Dim FileExt As String
@@ -38,7 +39,8 @@ Public Sub Handler()
     On Error GoTo FatalErrHandler
     
     Set MasterBook = ActiveWorkbook
-    Set MasterSheet = MasterBook.Worksheets("Master")
+    Set MasterSheetV3 = MasterBook.Worksheets("Master V3")
+    Set MasterSheetV4 = MasterBook.Worksheets("Master V4")
     Set UpdaterSheet = MasterBook.Worksheets("Updater")
     
     Set FSO = CreateObject("Scripting.FileSystemObject")
@@ -96,13 +98,13 @@ Public Sub Handler()
         End If
     
         'filter master spreadsheet for candidate
-        MasterSheet.Range("A:CL").AutoFilter Field:=4, Criteria1:=CandidateNo
-        Set RsltRng = MasterSheet.Range("A3:CL300").SpecialCells(xlCellTypeVisible)
+        MasterSheetV3.Range("A:CL").AutoFilter Field:=4, Criteria1:=CandidateNo
+        Set RsltRng = MasterSheetV3.Range("A3:CL300").SpecialCells(xlCellTypeVisible)
         CandidateRow = RsltRng.Row
         
         'check correct record
-        MasterSheet.Activate
-        MasterSheet.Range("A" & CandidateRow).Select
+        MasterSheetV3.Activate
+        MasterSheetV3.Range("A" & CandidateRow).Select
         ContinueYN = MsgBox("Is this the correct record?", vbYesNo, "Confirm Record")
         
         If ContinueYN = 6 Then
@@ -128,8 +130,8 @@ Public Sub EnterData()
     Dim RsltRng As Range
     
     'backup current data
-    MasterSheet.Activate
-    MasterSheet.Range("f" & CandidateRow & ":bx" & CandidateRow).Copy
+    MasterSheetV3.Activate
+    MasterSheetV3.Range("f" & CandidateRow & ":bx" & CandidateRow).Copy
     UpdaterSheet.Activate
     UpdaterSheet.Range("A4").PasteSpecial
     UpdaterSheet.Range("a1").Select
@@ -146,15 +148,15 @@ Public Sub EnterData()
         UpdaterSheet.Range("A2:bs2").Copy
     
         'paste data into master
-        MasterSheet.Activate
-        MasterSheet.Range("f" & CandidateRow).PasteSpecial
+        MasterSheetV3.Activate
+        MasterSheetV3.Range("f" & CandidateRow).PasteSpecial
         
         
         'get overall progress
         ProgressSheet.Activate
         Progress = ProgressSheet.Range("w51") * 100
         
-        Set ProgressArea = MasterSheet.Range("by" & CandidateRow & ":cl" & CandidateRow)
+        Set ProgressArea = MasterSheetV3.Range("by" & CandidateRow & ":cl" & CandidateRow)
         'ProgressArea.Select
         
         For Each MyCell In ProgressArea
@@ -168,18 +170,18 @@ Public Sub EnterData()
         MyCell.AddComment (Format(Now, "mmm yy"))
         
         'add date
-        MasterSheet.Range("cm" & CandidateRow).Value = Now()
+        MasterSheetV3.Range("cm" & CandidateRow).Value = Now()
         
         
         'check entry
-        MasterSheet.Activate
-        MasterSheet.Range("cm1").Select
+        MasterSheetV3.Activate
+        MasterSheetV3.Range("cm1").Select
         ActiveWindow.Zoom = 70
         
-        ContinueYN = MsgBox("Happy?", vbYesNo)
+        ContinueYN = True
         
         'remove filter
-        With MasterSheet
+        With MasterSheetV3
             .Range("A:CL").AutoFilter Field:=4
             .Range("g3").Select
         End With
@@ -371,19 +373,31 @@ Public Sub SaveFile()
     
     MasterBook.Save
     
-    FilePath = "\\imp.lincolnshire.gov.uk\DavWWWRoot\contentserverdav\nodes\21592528\Phase 2 FF Development\"
+    FilePath = "T:\Phase 2 FF Development\"
     Set Fldrs = FSO.GetFolder(FilePath).SubFolders
     
     'build filename
-    FileName = "Phase 2 Progress Master Spreadsheet.xlsx"
+    FileName = "Phase 2 Progress Master Spreadsheet V3.xlsx"
     
     'save copy
     Application.DisplayAlerts = False
     
-    'save copy on t drive
-    MasterSheet.Copy
+    'save V3 copy on t drive
+    MasterSheetV3.Copy
     ActiveWorkbook.SaveAs FilePath & "\" & " " & FileName
     ActiveWorkbook.Close
+    
+    'build filename
+    FileName = "Phase 2 Progress Master Spreadsheet V4.xlsx"
+    
+    'save copy
+    Application.DisplayAlerts = False
+    
+    'save V4 copy on t drive
+    MasterSheetV4.Copy
+    ActiveWorkbook.SaveAs FilePath & "\" & " " & FileName
+    ActiveWorkbook.Close
+    
     'save archive MasterSheet
     
     'MasterBook.SaveAs FileName:=MasterSheetLocation & "\" & FileName, FileFormat:=xlOpenXMLWorkbook

@@ -6,32 +6,32 @@ Public Sub ExportModules()
     Dim ExportYN As Boolean
     Dim SourceBook As Excel.Workbook
     Dim SourceBookName As String
-    Dim EmportFileName As String
+    Dim ExportFileName As String
     Dim VBModule As VBIDE.VBComponent
    
     ''' NOTE: This workbook must be open in Excel.
     SourceBookName = ActiveWorkbook.Name
     Set SourceBook = Application.Workbooks(SourceBookName)
     
-    If Dir(EXPORT_FILE_PATH & "*.*") = "" Then
+    If Not Dir(EXPORT_FILE_PATH & "*.*") = "" Then
         Kill EXPORT_FILE_PATH & "*.*"
     End If
     
     For Each VBModule In SourceBook.VBProject.VBComponents
         
         ExportYN = True
-        EmportFileName = VBModule.Name
+        ExportFileName = VBModule.Name
 
         ''' Concatenate the correct filename for export.
         Select Case VBModule.Type
             Case vbext_ct_ClassModule
-                EmportFileName = EmportFileName & ".cls"
+                ExportFileName = ExportFileName & ".cls"
             Case vbext_ct_MSForm
-                EmportFileName = EmportFileName & ".frm"
+                ExportFileName = ExportFileName & ".frm"
             Case vbext_ct_StdModule
-                EmportFileName = EmportFileName & ".bas"
+                ExportFileName = ExportFileName & ".bas"
             Case vbext_ct_Document
-                EmportFileName = EmportFileName & ".cls"
+                ExportFileName = ExportFileName & ".cls"
                 ''' This is a worksheet or workbook object.
                 ''' Don't try to export.
 '                ExportYN = False
@@ -39,7 +39,7 @@ Public Sub ExportModules()
         
         If ExportYN Then
             ''' Export the component to a text file.
-            VBModule.Export EXPORT_FILE_PATH & EmportFileName
+            VBModule.Export EXPORT_FILE_PATH & ExportFileName
             
         End If
    
