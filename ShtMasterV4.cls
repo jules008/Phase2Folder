@@ -8,9 +8,14 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 
-Const WorkingDir = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
-Const MasterSheetLocation = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
-    
+Const WORKING_DIR = "E:\Development Areas\Phase 2 Folder\WorkingFolder\"
+Const MASTER_SHEET = "E:\Development Areas\Phase 2 Folder\"
+Const SAVE_LOCATION = "E:\Development Areas\Phase 2 Folder\T_Drive\"
+
+'Const WORKING_DIR = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
+'Const MASTER_SHEET = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
+'Const SAVE_LOCATION  = "T:\Phase 2 FF Development\"
+   
     Dim FSO As New FileSystemObject
     Dim ProgressSheet As Worksheet
     Dim ProgressBook As Workbook
@@ -49,7 +54,7 @@ Public Sub Handler()
     Set DlgOpen = Application.FileDialog(msoFileDialogOpen)
     
      With DlgOpen
-        .InitialFileName = WorkingDir
+        .InitialFileName = WORKING_DIR
         .Filters.Clear
         .Filters.Add "Excel Files (*.xls; *.xlsx; *.xlsm)", "*.xls, *.xlsx, *.xlsm"
         .AllowMultiSelect = True
@@ -330,13 +335,13 @@ Public Sub SaveFile()
     Dim Fldrs As Folders
     Dim Fld As Folder
     Dim Fls As Files
-    Dim FilePath As String
+    Dim SAVE_LOCATION As String
     
     If Application.UserName <> "Julian Turner" Then
         MasterBook.Save
         
-        FilePath = "T:\Phase 2 FF Development\"
-        Set Fldrs = FSO.GetFolder(FilePath).SubFolders
+        SAVE_LOCATION = "T:\Phase 2 FF Development\"
+        Set Fldrs = FSO.GetFolder(SAVE_LOCATION).SubFolders
         
         'build filename
         FileName = "Phase 2 Progress Master Spreadsheet V3.xlsx"
@@ -346,7 +351,7 @@ Public Sub SaveFile()
         
         'save copy on t drive
         MasterSheetV3.Copy
-        ActiveWorkbook.SaveAs FilePath & "\" & " " & FileName
+        ActiveWorkbook.SaveAs SAVE_LOCATION & "\" & " " & FileName
         ActiveWorkbook.Close
         
         'build filename
@@ -357,7 +362,7 @@ Public Sub SaveFile()
         
         'save V4 copy on t drive
         MasterSheetV4.Copy
-        ActiveWorkbook.SaveAs FilePath & "\" & " " & FileName
+        ActiveWorkbook.SaveAs SAVE_LOCATION & "\" & " " & FileName
         ActiveWorkbook.Close
         
         'save archive MasterSheetV4
@@ -366,7 +371,7 @@ Public Sub SaveFile()
         
         
         'save master copy
-        'MasterBook.SaveAs FileName:=MasterSheetLocation & "Phase 2 Progress Master Spreadsheet.xlsm", FileFormat:=xlOpenXMLWorkbookMacroEnabled
+        'MasterBook.SaveAs FileName:=MASTER_SHEET & "Phase 2 Progress Master Spreadsheet.xlsm", FileFormat:=xlOpenXMLWorkbookMacroEnabled
         
         
         Application.DisplayAlerts = True
@@ -379,19 +384,19 @@ Public Sub SaveFile()
             
         Next
         
-        FilePath = FilePath & Fld.Name
+        SAVE_LOCATION = SAVE_LOCATION & Fld.Name
     
         'save progress sheet
         Application.DisplayAlerts = False
         
-        FilePath = FilePath & "\" & Format(Now, "yyyy-mm-dd") & " " & CandidateName & " " & CandidateNo & " v4" & FileExt
+        SAVE_LOCATION = SAVE_LOCATION & "\" & Format(Now, "yyyy-mm-dd") & " " & CandidateName & " " & CandidateNo & " v4" & FileExt
         
-        ProgressBook.SaveAs (FilePath)
+        ProgressBook.SaveAs (SAVE_LOCATION)
         ProgressBook.Close
         Application.DisplayAlerts = True
         
          With Application.FileDialog(msoFileDialogOpen)
-            .InitialFileName = FilePath
+            .InitialFileName = SAVE_LOCATION
             .AllowMultiSelect = True
             .Filters.Add "All Files (*.*)", "*.*"
             .Title = "Move old file to archive"
