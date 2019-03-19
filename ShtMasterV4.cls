@@ -151,7 +151,7 @@ Public Sub EnterData()
     If ContinueYN = 6 Then
     
         'copy data
-        UpdaterSheet.Range("A2:BW2").Copy
+        UpdaterSheet.Range("A2:CC2").Copy
     
         'paste data into master
         MasterSheetV4.Activate
@@ -162,8 +162,8 @@ Public Sub EnterData()
         ProgressSheet.Activate
         Progress = ProgressSheet.Range("w51") * 100
         
-        Set ProgressArea = MasterSheetV4.Range("CC" & CandidateRow & ":CP" & CandidateRow)
-        'ProgressArea.Select
+        Set ProgressArea = MasterSheetV4.Range("CI" & CandidateRow & ":CV" & CandidateRow)
+        ProgressArea.Select
         
         For Each MyCell In ProgressArea
             If MyCell = "" Then Exit For
@@ -177,7 +177,7 @@ Public Sub EnterData()
         MyCell.AddComment (Format(Now, "mmm yy"))
         
         'add date
-        MasterSheetV4.Range("CQ" & CandidateRow).Value = Now()
+        MasterSheetV4.Range("CW" & CandidateRow).Value = Now()
         
         
         'check entry
@@ -221,7 +221,7 @@ Public Sub TransferData()
     UpdaterSheet.Range("B2:M2").PasteSpecial
         
     'RTC Theory
-    ProgressSheet.Range("Y20").Copy
+    ProgressSheet.Range("Y19").Copy
     With UpdaterSheet.Range("N2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -233,7 +233,7 @@ Public Sub TransferData()
     UpdaterSheet.Range("O2:Y2").PasteSpecial
        
     'Pumps Theory
-    ProgressSheet.Range("Y24").Copy
+    ProgressSheet.Range("Y22").Copy
     With UpdaterSheet.Range("Z2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -245,7 +245,7 @@ Public Sub TransferData()
     UpdaterSheet.Range("AA2:AK2").PasteSpecial
        
     'Water Theory
-    ProgressSheet.Range("Y28").Copy
+    ProgressSheet.Range("Y25").Copy
     With UpdaterSheet.Range("AL2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -257,7 +257,7 @@ Public Sub TransferData()
     UpdaterSheet.Range("AM2:AP2").PasteSpecial
      
     'WAH Theory
-    ProgressSheet.Range("Y32").Copy
+    ProgressSheet.Range("Y28").Copy
     With UpdaterSheet.Range("AQ2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -265,12 +265,12 @@ Public Sub TransferData()
     End With
     
     ' Working at Height Module
-    ProgressSheet.Range("C37:K37").Copy
-    UpdaterSheet.Range("AR2:AZ2").PasteSpecial
+    ProgressSheet.Range("C37:Q37").Copy
+    UpdaterSheet.Range("AR2:BK2").PasteSpecial
        
     'Haz Mats Theory
-    ProgressSheet.Range("Y36").Copy
-    With UpdaterSheet.Range("BA2")
+    ProgressSheet.Range("Y31").Copy
+    With UpdaterSheet.Range("BG2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -278,11 +278,11 @@ Public Sub TransferData()
     
     'Haz Mats Module
     ProgressSheet.Range("C42:H42").Copy
-    UpdaterSheet.Range("BB2:BG2").PasteSpecial
+    UpdaterSheet.Range("BH2:BM2").PasteSpecial
 
     'Comms Theory
-    ProgressSheet.Range("Y40").Copy
-    With UpdaterSheet.Range("BH2")
+    ProgressSheet.Range("Y34").Copy
+    With UpdaterSheet.Range("BN2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -290,11 +290,11 @@ Public Sub TransferData()
     
     'Communications Module
     ProgressSheet.Range("C47:G47").Copy
-    UpdaterSheet.Range("BI2:BM2").PasteSpecial
+    UpdaterSheet.Range("BO2:BS2").PasteSpecial
 
     'Cas Care Theory
-    ProgressSheet.Range("Y44").Copy
-    With UpdaterSheet.Range("BN2")
+    ProgressSheet.Range("Y37").Copy
+    With UpdaterSheet.Range("BT2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -302,11 +302,11 @@ Public Sub TransferData()
     
     'Casualty Care Module
     ProgressSheet.Range("J47").Copy
-    UpdaterSheet.Range("BO2").PasteSpecial
+    UpdaterSheet.Range("BU2").PasteSpecial
     
     'Misc Theory
-    ProgressSheet.Range("P45").Copy
-    With UpdaterSheet.Range("BP2")
+    ProgressSheet.Range("Y40").Copy
+    With UpdaterSheet.Range("BV2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         If ProgressSheet.Range("P45") <> 1 Then .Interior.Color = RGB(183, 222, 232)
@@ -315,11 +315,11 @@ Public Sub TransferData()
     
     'Misc Module
     ProgressSheet.Range("N47:S47").Copy
-    UpdaterSheet.Range("BQ2:BV2").PasteSpecial
+    UpdaterSheet.Range("BW2:CB2").PasteSpecial
     
     'MOK Theory
     ProgressSheet.Range("Y47").Copy
-    With UpdaterSheet.Range("BW2")
+    With UpdaterSheet.Range("CC2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
