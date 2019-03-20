@@ -1,5 +1,5 @@
 Attribute VB_Name = "ModProjectInOut"
-Const EXPORT_FILE_PATH As String = "E:\Development Areas\Phase 2 Folder\Library"
+Const EXPORT_FILE_PATH As String = "E:\Development Areas\Phase 2 Folder\Library\"
 Const PROJECT_FILE_NAME As String = "Phase 2 Progress Master Spreadsheet"
 
 Public Sub ExportModules()

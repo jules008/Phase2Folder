@@ -8,13 +8,13 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 
-Const WORKING_DIR = "E:\Development Areas\Phase 2 Folder\WorkingFolder\"
-Const MASTER_SHEET = "E:\Development Areas\Phase 2 Folder\"
-Const SAVE_LOCATION = "E:\Development Areas\Phase 2 Folder\T_Drive\"
+'Const WORKING_DIR = "E:\Development Areas\Phase 2 Folder\WorkingFolder\"
+'Const MASTER_SHEET = "E:\Development Areas\Phase 2 Folder\"
+'Const SAVE_LOCATION = "E:\Development Areas\Phase 2 Folder\T_Drive\"
 
-'Const WORKING_DIR = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
-'Const MASTER_SHEET = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
-'Const SAVE_LOCATION  = "T:\Phase 2 FF Development\"
+Const WORKING_DIR = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
+Const MASTER_SHEET = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
+Const SAVE_LOCATION = "T:\Phase 2 FF Development\"
    
     Dim FSO As New FileSystemObject
     Dim ProgressSheet As Worksheet
