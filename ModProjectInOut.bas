@@ -45,7 +45,7 @@ Public Sub ExportModules()
    
     Next VBModule
     
-    ThisWorkbook.SaveAs EXPORT_FILE_PATH & "\" & PROJECT_FILE_NAME, 51
+    ThisWorkbook.SaveAs EXPORT_FILE_PATH & PROJECT_FILE_NAME, 51
     
     Set DlgOpen = Nothing
 

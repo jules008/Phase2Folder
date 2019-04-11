@@ -373,7 +373,7 @@ Public Sub SaveFile()
     
     MasterBook.Save
     
-    FilePath = "T:\Phase 2 FF Development\"
+    FilePath = "\\lcc-fs-010\lincoln-hq\FB-Central\Phase 2 FF Development\"
     Set Fldrs = FSO.GetFolder(FilePath).SubFolders
     
     'build filename
