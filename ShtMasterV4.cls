@@ -163,7 +163,6 @@ Public Sub EnterData()
         Progress = ProgressSheet.Range("w51") * 100
         
         Set ProgressArea = MasterSheetV4.Range("CI" & CandidateRow & ":CV" & CandidateRow)
-        ProgressArea.Select
         
         For Each MyCell In ProgressArea
             If MyCell = "" Then Exit For
@@ -340,7 +339,7 @@ Public Sub SaveFile()
     If Application.UserName <> "Julian Turner" Then
         MasterBook.Save
         
-        SAVE_LOCATION = "T:\Phase 2 FF Development\"
+        SAVE_LOCATION = "\\lcc-fs-010\lincoln-hq\FB-Central\Phase 2 FF Development\"
         Set Fldrs = FSO.GetFolder(SAVE_LOCATION).SubFolders
         
         'build filename
