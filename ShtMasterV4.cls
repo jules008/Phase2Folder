@@ -14,7 +14,7 @@ Attribute VB_Exposed = True
 
 Const WORKING_DIR = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
 Const MASTER_SHEET = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
-Const SAVE_LOCATION = "T:\Phase 2 FF Development\"
+Const SAVE_LOCATION = "\\lcc-fs-010\lincoln-hq\FB-Central\Phase 2 FF Development\"
    
     Dim FSO As New FileSystemObject
     Dim ProgressSheet As Worksheet
