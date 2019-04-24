@@ -206,9 +206,16 @@ End Sub
 
 
 Public Sub TransferData()
-      
+    Dim TechSht As Boolean
+    Dim RngSel As Range
+    
+    If ProgressSheet.Range("S1") = "Version 4.01t" Then TechSht = True Else TechSht = False
+    
     'BA Theory
-    ProgressSheet.Range("Y16").Copy
+    
+    Set RngSel = ProgressSheet.Range("Y16")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("A2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -220,7 +227,10 @@ Public Sub TransferData()
     UpdaterSheet.Range("B2:M2").PasteSpecial
         
     'RTC Theory
-    ProgressSheet.Range("Y19").Copy
+    
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y19") Else RngSel = ProgressSheet.Range("Y20")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("N2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -232,7 +242,10 @@ Public Sub TransferData()
     UpdaterSheet.Range("O2:Y2").PasteSpecial
        
     'Pumps Theory
-    ProgressSheet.Range("Y22").Copy
+    
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y22") Else RngSel = ProgressSheet.Range("Y24")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("Z2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -244,7 +257,10 @@ Public Sub TransferData()
     UpdaterSheet.Range("AA2:AK2").PasteSpecial
        
     'Water Theory
-    ProgressSheet.Range("Y25").Copy
+    
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y25") Else RngSel = ProgressSheet.Range("Y28")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("AL2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -256,7 +272,10 @@ Public Sub TransferData()
     UpdaterSheet.Range("AM2:AP2").PasteSpecial
      
     'WAH Theory
-    ProgressSheet.Range("Y28").Copy
+    
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y28") Else RngSel = ProgressSheet.Range("Y32")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("AQ2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -268,7 +287,10 @@ Public Sub TransferData()
     UpdaterSheet.Range("AR2:BK2").PasteSpecial
        
     'Haz Mats Theory
-    ProgressSheet.Range("Y31").Copy
+    
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y31") Else RngSel = ProgressSheet.Range("Y36")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("BG2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -280,7 +302,10 @@ Public Sub TransferData()
     UpdaterSheet.Range("BH2:BM2").PasteSpecial
 
     'Comms Theory
-    ProgressSheet.Range("Y34").Copy
+    
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y34") Else RngSel = ProgressSheet.Range("Y40")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("BN2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -292,7 +317,10 @@ Public Sub TransferData()
     UpdaterSheet.Range("BO2:BS2").PasteSpecial
 
     'Cas Care Theory
-    ProgressSheet.Range("Y37").Copy
+    
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y37") Else RngSel = ProgressSheet.Range("Y44")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("BT2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -304,7 +332,10 @@ Public Sub TransferData()
     UpdaterSheet.Range("BU2").PasteSpecial
     
     'Misc Theory
-    ProgressSheet.Range("Y40").Copy
+    
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y40")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("BV2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
@@ -317,13 +348,18 @@ Public Sub TransferData()
     UpdaterSheet.Range("BW2:CB2").PasteSpecial
     
     'MOK Theory
-    ProgressSheet.Range("Y47").Copy
+    
+    Set RngSel = ProgressSheet.Range("Y47")
+    
+    RngSel.Copy
     With UpdaterSheet.Range("CC2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
     End With
     
+    Set RngSel = Nothing
+
 End Sub
 
 Private Sub CmdUpdPrg_Click()
