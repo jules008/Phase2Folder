@@ -243,7 +243,7 @@ Public Sub TransferData()
        
     'Pumps Theory
     
-    If TechSht Then Set RngSel = ProgressSheet.Range("Y22") Else Set RngSel = ProgressSheet.Range("Y22")
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y22") Else Set RngSel = ProgressSheet.Range("Y24")
     
     RngSel.Copy
     With UpdaterSheet.Range("Z2")
