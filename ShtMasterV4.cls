@@ -228,7 +228,7 @@ Public Sub TransferData()
         
     'RTC Theory
     
-    If TechSht Then Set RngSel = ProgressSheet.Range("Y19") Else RngSel = ProgressSheet.Range("Y20")
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y19") Else Set RngSel = ProgressSheet.Range("Y20")
     
     RngSel.Copy
     With UpdaterSheet.Range("N2")
@@ -243,7 +243,7 @@ Public Sub TransferData()
        
     'Pumps Theory
     
-    If TechSht Then Set RngSel = ProgressSheet.Range("Y22") Else RngSel = ProgressSheet.Range("Y24")
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y22") Else Set RngSel = ProgressSheet.Range("Y22")
     
     RngSel.Copy
     With UpdaterSheet.Range("Z2")
@@ -258,7 +258,7 @@ Public Sub TransferData()
        
     'Water Theory
     
-    If TechSht Then Set RngSel = ProgressSheet.Range("Y25") Else RngSel = ProgressSheet.Range("Y28")
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y25") Else Set RngSel = ProgressSheet.Range("Y28")
     
     RngSel.Copy
     With UpdaterSheet.Range("AL2")
@@ -273,7 +273,7 @@ Public Sub TransferData()
      
     'WAH Theory
     
-    If TechSht Then Set RngSel = ProgressSheet.Range("Y28") Else RngSel = ProgressSheet.Range("Y32")
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y28") Else Set RngSel = ProgressSheet.Range("Y32")
     
     RngSel.Copy
     With UpdaterSheet.Range("AQ2")
@@ -288,7 +288,7 @@ Public Sub TransferData()
        
     'Haz Mats Theory
     
-    If TechSht Then Set RngSel = ProgressSheet.Range("Y31") Else RngSel = ProgressSheet.Range("Y36")
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y31") Else Set RngSel = ProgressSheet.Range("Y36")
     
     RngSel.Copy
     With UpdaterSheet.Range("BG2")
@@ -303,7 +303,7 @@ Public Sub TransferData()
 
     'Comms Theory
     
-    If TechSht Then Set RngSel = ProgressSheet.Range("Y34") Else RngSel = ProgressSheet.Range("Y40")
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y34") Else Set RngSel = ProgressSheet.Range("Y40")
     
     RngSel.Copy
     With UpdaterSheet.Range("BN2")
@@ -318,7 +318,7 @@ Public Sub TransferData()
 
     'Cas Care Theory
     
-    If TechSht Then Set RngSel = ProgressSheet.Range("Y37") Else RngSel = ProgressSheet.Range("Y44")
+    If TechSht Then Set RngSel = ProgressSheet.Range("Y37") Else Set RngSel = ProgressSheet.Range("Y44")
     
     RngSel.Copy
     With UpdaterSheet.Range("BT2")
