@@ -8,20 +8,19 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 
-'Const WORKING_DIR = "E:\Development Areas\Phase 2 Folder\WorkingFolder\"
-'Const MASTER_SHEET = "E:\Development Areas\Phase 2 Folder\"
-'Const SAVE_LOCATION = "E:\Development Areas\Phase 2 Folder\T_Drive\"
-
-Const WORKING_DIR = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
-Const MASTER_SHEET = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
-Const SAVE_LOCATION = "\\lcc-fs-010\lincoln-hq\FB-Central\Phase 2 FF Development\"
+    Const WORKING_DIR = "G:\Development Areas\Phase 2 Folder\WorkingFolder\"
+    Const MASTER_SHEET = "G:\Development Areas\Phase 2 Folder\"
+    Const SAVE_LOCATION = "G:\Development Areas\Phase 2 Folder\T_Drive\"
+    
+'    Const WORKING_DIR = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
+'    Const MASTER_SHEET = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
+'    Const SAVE_LOCATION = "\\lcc-fs-010\lincoln-hq\FB-Central\Phase 2 FF Development\"
    
     Dim FSO As New FileSystemObject
     Dim ProgressSheet As Worksheet
     Dim ProgressBook As Workbook
     Dim MasterBook As Workbook
     Dim MasterSheetV4 As Worksheet
-    Dim MasterSheetV3 As Worksheet
     Dim UpdaterSheet As Worksheet
     Dim ProgressArea As Range
     Dim FileExt As String
@@ -44,7 +43,6 @@ Public Sub Handler()
     On Error GoTo FatalErrHandler
     
     Set MasterBook = ActiveWorkbook
-    Set MasterSheetV3 = MasterBook.Worksheets("Master V3")
     Set MasterSheetV4 = MasterBook.Worksheets("Master V4")
     Set UpdaterSheet = MasterBook.Worksheets("Updater")
     
@@ -136,7 +134,7 @@ Public Sub EnterData()
     
     'backup current data
     MasterSheetV4.Activate
-    MasterSheetV4.Range("F" & CandidateRow & ":CB" & CandidateRow).Copy
+    MasterSheetV4.Range("F" & CandidateRow & ":CK" & CandidateRow).Copy
     UpdaterSheet.Activate
     UpdaterSheet.Range("A4").PasteSpecial
     UpdaterSheet.Range("A1").Select
@@ -151,7 +149,7 @@ Public Sub EnterData()
     If ContinueYN = 6 Then
     
         'copy data
-        UpdaterSheet.Range("A2:CC2").Copy
+        UpdaterSheet.Range("A2:CF2").Copy
     
         'paste data into master
         MasterSheetV4.Activate
@@ -162,7 +160,7 @@ Public Sub EnterData()
         ProgressSheet.Activate
         Progress = ProgressSheet.Range("w51") * 100
         
-        Set ProgressArea = MasterSheetV4.Range("CI" & CandidateRow & ":CV" & CandidateRow)
+        Set ProgressArea = MasterSheetV4.Range("CL" & CandidateRow & ":CY" & CandidateRow)
         
         For Each MyCell In ProgressArea
             If MyCell = "" Then Exit For
@@ -176,7 +174,7 @@ Public Sub EnterData()
         MyCell.AddComment (Format(Now, "mmm yy"))
         
         'add date
-        MasterSheetV4.Range("CW" & CandidateRow).Value = Now()
+        MasterSheetV4.Range("CZ" & CandidateRow).Value = Now()
         
         
         'check entry
@@ -209,7 +207,7 @@ Public Sub TransferData()
     Dim TechSht As Boolean
     Dim RngSel As Range
     
-    If ProgressSheet.Range("S1") = "Version 4.01t" Then TechSht = True Else TechSht = False
+    If Right(ProgressSheet.Range("S1"), 1) = "t" Then TechSht = True Else TechSht = False
     
     'BA Theory
     
@@ -238,30 +236,30 @@ Public Sub TransferData()
     End With
     
     'Extrication and resuce module
-    ProgressSheet.Range("C22:M22").Copy
-    UpdaterSheet.Range("O2:Y2").PasteSpecial
+    ProgressSheet.Range("C22:N22").Copy
+    UpdaterSheet.Range("O2:Z2").PasteSpecial
        
     'Pumps Theory
     
     If TechSht Then Set RngSel = ProgressSheet.Range("Y22") Else Set RngSel = ProgressSheet.Range("Y24")
     
     RngSel.Copy
-    With UpdaterSheet.Range("Z2")
+    With UpdaterSheet.Range("AA2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
     End With
     
     'Pumps module
-    ProgressSheet.Range("C27:M27").Copy
-    UpdaterSheet.Range("AA2:AK2").PasteSpecial
+    ProgressSheet.Range("C27:O27").Copy
+    UpdaterSheet.Range("AB2:AN2").PasteSpecial
        
     'Water Theory
     
     If TechSht Then Set RngSel = ProgressSheet.Range("Y25") Else Set RngSel = ProgressSheet.Range("Y28")
     
     RngSel.Copy
-    With UpdaterSheet.Range("AL2")
+    With UpdaterSheet.Range("AO2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -269,14 +267,14 @@ Public Sub TransferData()
     
     'Water Module
     ProgressSheet.Range("C32:F32").Copy
-    UpdaterSheet.Range("AM2:AP2").PasteSpecial
+    UpdaterSheet.Range("AP2:AS2").PasteSpecial
      
     'WAH Theory
     
     If TechSht Then Set RngSel = ProgressSheet.Range("Y28") Else Set RngSel = ProgressSheet.Range("Y32")
     
     RngSel.Copy
-    With UpdaterSheet.Range("AQ2")
+    With UpdaterSheet.Range("AT2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -284,14 +282,14 @@ Public Sub TransferData()
     
     ' Working at Height Module
     ProgressSheet.Range("C37:Q37").Copy
-    UpdaterSheet.Range("AR2:BK2").PasteSpecial
+    UpdaterSheet.Range("AU2:BI2").PasteSpecial
        
     'Haz Mats Theory
     
     If TechSht Then Set RngSel = ProgressSheet.Range("Y31") Else Set RngSel = ProgressSheet.Range("Y36")
     
     RngSel.Copy
-    With UpdaterSheet.Range("BG2")
+    With UpdaterSheet.Range("BJ2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -299,14 +297,14 @@ Public Sub TransferData()
     
     'Haz Mats Module
     ProgressSheet.Range("C42:H42").Copy
-    UpdaterSheet.Range("BH2:BM2").PasteSpecial
+    UpdaterSheet.Range("BK2:BP2").PasteSpecial
 
     'Comms Theory
     
     If TechSht Then Set RngSel = ProgressSheet.Range("Y34") Else Set RngSel = ProgressSheet.Range("Y40")
     
     RngSel.Copy
-    With UpdaterSheet.Range("BN2")
+    With UpdaterSheet.Range("BQ2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -314,14 +312,14 @@ Public Sub TransferData()
     
     'Communications Module
     ProgressSheet.Range("C47:G47").Copy
-    UpdaterSheet.Range("BO2:BS2").PasteSpecial
+    UpdaterSheet.Range("BR2:BV2").PasteSpecial
 
     'Cas Care Theory
     
     If TechSht Then Set RngSel = ProgressSheet.Range("Y37") Else Set RngSel = ProgressSheet.Range("Y44")
     
     RngSel.Copy
-    With UpdaterSheet.Range("BT2")
+    With UpdaterSheet.Range("BW2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -329,14 +327,14 @@ Public Sub TransferData()
     
     'Casualty Care Module
     ProgressSheet.Range("J47").Copy
-    UpdaterSheet.Range("BU2").PasteSpecial
+    UpdaterSheet.Range("BX2").PasteSpecial
     
     'Misc Theory
     
     If TechSht Then Set RngSel = ProgressSheet.Range("Y40")
     
     RngSel.Copy
-    With UpdaterSheet.Range("BV2")
+    With UpdaterSheet.Range("BY2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         If ProgressSheet.Range("P45") <> 1 Then .Interior.Color = RGB(183, 222, 232)
@@ -345,14 +343,14 @@ Public Sub TransferData()
     
     'Misc Module
     ProgressSheet.Range("N47:S47").Copy
-    UpdaterSheet.Range("BW2:CB2").PasteSpecial
+    UpdaterSheet.Range("BZ2:CE2").PasteSpecial
     
     'MOK Theory
     
     Set RngSel = ProgressSheet.Range("Y47")
     
     RngSel.Copy
-    With UpdaterSheet.Range("CC2")
+    With UpdaterSheet.Range("CF2")
         .PasteSpecial xlPasteValues
         .PasteSpecial xlPasteFormats
         .Font.Size = 10
@@ -383,12 +381,7 @@ Public Sub SaveFile()
         
         'save copy
         Application.DisplayAlerts = False
-        
-        'save copy on t drive
-        MasterSheetV3.Copy
-        ActiveWorkbook.SaveAs SAVE_LOCATION & "\" & " " & FileName
-        ActiveWorkbook.Close
-        
+                
         'build filename
         FileName = "Phase 2 Progress Master Spreadsheet V4.xlsx"
         
