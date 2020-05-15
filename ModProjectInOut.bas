@@ -1,7 +1,18 @@
 Attribute VB_Name = "ModProjectInOut"
-Const EXPORT_FILE_PATH As String = "E:\Development Areas\Phase 2 Folder\Library\"
-Const PROJECT_FILE_NAME As String = "Phase 2 Progress Master Spreadsheet"
+'===============================================================
+' Module ModProjectInOut
+'===============================================================
+' v1.0.0 - Initial Version
+'---------------------------------------------------------------
+' Date - 19 Apr 18
+'===============================================================
 
+Option Explicit
+
+' ===============================================================
+' ExportModules
+' Exports all VBA Modules to dev library
+' ---------------------------------------------------------------
 Public Sub ExportModules()
     Dim ExportYN As Boolean
     Dim SourceBook As Excel.Workbook
@@ -9,7 +20,8 @@ Public Sub ExportModules()
     Dim ExportFileName As String
     Dim VBModule As VBIDE.VBComponent
    
-    ''' NOTE: This workbook must be open in Excel.
+    On Error Resume Next
+   
     SourceBookName = ActiveWorkbook.Name
     Set SourceBook = Application.Workbooks(SourceBookName)
     
@@ -22,7 +34,6 @@ Public Sub ExportModules()
         ExportYN = True
         ExportFileName = VBModule.Name
 
-        ''' Concatenate the correct filename for export.
         Select Case VBModule.Type
             Case vbext_ct_ClassModule
                 ExportFileName = ExportFileName & ".cls"
@@ -32,52 +43,46 @@ Public Sub ExportModules()
                 ExportFileName = ExportFileName & ".bas"
             Case vbext_ct_Document
                 ExportFileName = ExportFileName & ".cls"
-                ''' This is a worksheet or workbook object.
-                ''' Don't try to export.
-'                ExportYN = False
         End Select
         
         If ExportYN Then
-            ''' Export the component to a text file.
             VBModule.Export EXPORT_FILE_PATH & ExportFileName
             
         End If
    
     Next VBModule
     
-    ThisWorkbook.SaveAs EXPORT_FILE_PATH & PROJECT_FILE_NAME, 51
+    Application.DisplayAlerts = False
+    ThisWorkbook.SaveAs EXPORT_FILE_PATH & "\" & PROJECT_FILE_NAME, 51
+    Application.DisplayAlerts = True
     
-    Set DlgOpen = Nothing
-
     MsgBox "Export is ready", vbInformation, APP_NAME
+    Set SourceBook = Nothing
 End Sub
 
+' ===============================================================
+' ImportModules
+' Imports all VBA Modules from dev library
+' ---------------------------------------------------------------
 Public Sub ImportModules()
     Dim TargetBook As Excel.Workbook
     Dim FSO As Scripting.FileSystemObject
     Dim FileObj As Scripting.File
     Dim TargetBookName As String
-    Dim ImportFilePath As String
     Dim ImportFileName As String
     Dim VBModules As VBIDE.VBComponents
-
-    ImportFilePath = ThisWorkbook.Path
     
-    ''' NOTE: This workbook must be open in Excel.
-    TargetBookName = ActiveWorkbook.Name
-    Set TargetBook = Application.Workbooks(TargetBookName)
-            
+    On Error Resume Next
+    
     Set FSO = New Scripting.FileSystemObject
-    If FSO.GetFolder(ImportFilePath).Files.Count = 0 Then
-       MsgBox "There are no files to import", vbInformation, APP_NAME
+    If FSO.GetFolder(ThisWorkbook.Path).Files.Count = 0 Then
+       MsgBox "There are no files to import", vbInformation
        Exit Sub
     End If
 
-    Set VBModules = TargetBook.VBProject.VBComponents
+    Set VBModules = ThisWorkbook.VBProject.VBComponents
     
-    ''' Import all the code modules in the specified path
-    ''' to the ActiveWorkbook.
-    For Each FileObj In FSO.GetFolder(ImportFilePath).Files
+    For Each FileObj In FSO.GetFolder(ThisWorkbook.Path).Files
         Debug.Print FileObj.Name
         
         If (FSO.GetExtensionName(FileObj.Name) = "cls") Or _
@@ -89,8 +94,14 @@ Public Sub ImportModules()
         
     Next FileObj
     Debug.Print "End of import"
+    Set FSO = Nothing
+    Set VBModules = Nothing
 End Sub
  
+' ===============================================================
+' RemoveAllModules
+' Removes all VBA Modules from project
+' ---------------------------------------------------------------
 Public Sub RemoveAllModules()
     Dim ExportYN As Boolean
     Dim DlgOpen As FileDialog
@@ -99,113 +110,26 @@ Public Sub RemoveAllModules()
     Dim EXPORTFILEPATH As String
     Dim ImportFileName As String
     Dim VBModule As VBIDE.VBComponent
-   
-    ''' NOTE: This workbook must be open in Excel.
+    
+    On Error Resume Next
+    
     SourceBookName = ActiveWorkbook.Name
     Set SourceBook = Application.Workbooks(SourceBookName)
         
     For Each VBModule In SourceBook.VBProject.VBComponents
         
-        ''' remove it from the project if you want
         If VBModule.Type <> vbext_ct_Document Then SourceBook.VBProject.VBComponents.Remove VBModule
            
     Next VBModule
     
     Set DlgOpen = Nothing
-
+    Set SourceBook = Nothing
 End Sub
 
-Public Sub ExportDBTables()
-    Dim iFile As Integer
-    Dim Fld As Field
-    Dim FieldType As String
-    Dim TableExport As TableDef
-    Dim ExportFldr As String
-        
-    For Each TableExport In DB.TableDefs
-        If Not (TableExport.Name Like "MSys*" Or TableExport.Name Like "~*") Then
-            
-            'debug.print TableExport.Name
-            
-            PrintFilePath = EXPORTFILEPATH & TableExport.Name & ".txt"
-        
-            iFile = FreeFile()
-            
-            Open PrintFilePath For Append As #iFile
-            
-            For Each Fld In TableExport.Fields
-                Select Case Fld.Type
-                    Case Is = 1
-                        FieldType = "dbBoolean"
-                    Case Is = 2
-                        FieldType = "dbByte"
-                    Case Is = 3
-                        FieldType = "dbInteger"
-                    Case Is = 4
-                        FieldType = "dbLong"
-                    Case Is = 5
-                        FieldType = "dbCurrency"
-                    Case Is = 6
-                        FieldType = "dbSingle"
-                    Case Is = 7
-                        FieldType = "dbDouble"
-                    Case Is = 8
-                        FieldType = "dbDate"
-                    Case Is = 9
-                        FieldType = "dbBinary"
-                    Case Is = 10
-                        FieldType = "dbText"
-                    Case Is = 11
-                        FieldType = "dbLongBinary"
-                    Case Is = 12
-                        FieldType = "dbMemo"
-                    Case Is = 15
-                        FieldType = "dbGUID"
-                    Case Is = 16
-                        FieldType = "dbBigInt"
-                    Case Is = 17
-                        FieldType = "dbVarBinary"
-                    Case Is = 18
-                        FieldType = "dbChar"
-                    Case Is = 19
-                        FieldType = "dbNumeric"
-                    Case Is = 20
-                        FieldType = "dbDecimal"
-                    Case Is = 21
-                        FieldType = "dbFloat"
-                    Case Is = 22
-                        FieldType = "dbTime"
-                    Case Is = 23
-                        FieldType = "dbTimeStamp"
-                    Case Is = 101
-                        FieldType = "dbAttachment"
-                    Case Is = 102
-                        FieldType = "dbComplexByte"
-                    Case Is = 103
-                        FieldType = "dbComplexInteger"
-                    Case Is = 104
-                        FieldType = "dbComplexLong"
-                    Case Is = 105
-                        FieldType = "dbComplexSingle"
-                    Case Is = 106
-                        FieldType = "dbComplexDouble"
-                    Case Is = 107
-                        FieldType = "dbComplexGUID"
-                    Case Is = 108
-                        FieldType = "dbComplexDecimal"
-                    Case Is = 109
-                        FieldType = "dbComplexText"
-                End Select
-                
-                Print #iFile, Fld.Name & ",  " & FieldType
-            
-            Next
-                    
-            Close #iFile
-        End If
-    Next
-End Sub
-
+' ===============================================================
+' SetReferenceLibs
+' Sets all project reference libraries
+' ---------------------------------------------------------------
 Public Sub SetReferenceLibs()
     Dim Reference As Object
     
@@ -277,6 +201,10 @@ Public Sub SetReferenceLibs()
     End If
 End Sub
 
+' ===============================================================
+' ReferenceExists
+' Checks to see if reference already exists
+' ---------------------------------------------------------------
 Public Function ReferenceExists(Ref As String) As Boolean
     Dim i As Integer
     
@@ -291,11 +219,20 @@ Public Function ReferenceExists(Ref As String) As Boolean
     End With
 End Function
 
+' ===============================================================
+' BuildProject
+' main program for building project
+' ---------------------------------------------------------------
 Public Sub BuildProject()
     SetReferenceLibs
     ImportModules
     CopyShtCodeModule
 End Sub
+
+' ===============================================================
+' CopyShtCodeModule
+' Copies sheet modules and this workbook classes
+' ---------------------------------------------------------------
 Public Sub CopyShtCodeModule()
     Dim SourceMod As VBIDE.VBComponent
     Dim DestMod As VBIDE.VBComponent
@@ -356,7 +293,10 @@ Public Sub CopyShtCodeModule()
     Set VBCodeMod = Nothing
 End Sub
 
-
+' ===============================================================
+' ModuleExists
+' checks to see if module exists in project
+' ---------------------------------------------------------------
 Public Function ModuleExists(ModuleName As String) As Boolean
     Dim CodeModule As VBIDE.VBComponent
  
@@ -364,3 +304,13 @@ Public Function ModuleExists(ModuleName As String) As Boolean
         If CodeModule.Name = ModuleName Then ModuleExists = True
     Next
 End Function
+
+' ===============================================================
+' ImportModule
+' Imports a sinlge VBA Modules from dev library
+' ---------------------------------------------------------------
+Public Sub ImportModule(ModuleName As String)
+    ThisWorkbook.VBProject.VBComponents.Import IMPORT_FILE_PATH & ModuleName
+End Sub
+
+
