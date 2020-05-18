@@ -8,13 +8,13 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 
-    Const WORKING_DIR = "G:\Development Areas\Phase 2 Folder\WorkingFolder\"
-    Const MASTER_SHEET = "G:\Development Areas\Phase 2 Folder\"
-    Const SAVE_LOCATION = "G:\Development Areas\Phase 2 Folder\T_Drive\"
-    
-'    Const WORKING_DIR = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
-'    Const MASTER_SHEET = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
-'    Const SAVE_LOCATION = "\\lcc-fs-010\lincoln-hq\FB-Central\Phase 2 FF Development\"
+'    Const WORKING_DIR = "G:\Development Areas\Phase 2 Folder\WorkingFolder\"
+'    Const MASTER_SHEET = "G:\Development Areas\Phase 2 Folder\"
+'    Const SAVE_LOCATION = "G:\Development Areas\Phase 2 Folder\T_Drive\"
+
+    Const WORKING_DIR = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\Working Folder\"
+    Const MASTER_SHEET = "G:\Departments\Organisational Development\Workforce Development\Phase 2 Development Folder\1. Master Spreadsheets\"
+    Const SAVE_LOCATION = "\\lcc-fs-010\lincoln-hq\FB-Central\Phase 2 FF Development\"
    
     Dim FSO As New FileSystemObject
     Dim ProgressSheet As Worksheet
@@ -377,7 +377,7 @@ Public Sub SaveFile()
         Set Fldrs = FSO.GetFolder(SAVE_LOCATION).SubFolders
         
         'build filename
-        FileName = "Phase 2 Progress Master Spreadsheet V3.xlsx"
+        FileName = "Phase 2 Progress Master Spreadsheet V4.xlsx"
         
         'save copy
         Application.DisplayAlerts = False

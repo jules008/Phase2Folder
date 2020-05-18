@@ -15,7 +15,7 @@ Option Explicit
 ' ---------------------------------------------------------------
 Public Const PROJECT_FILE_NAME As String = "Phase 2 Master Spreadsheet 2020"
 Public Const APP_NAME As String = "Phase 2"
-Public Const EXPORT_FILE_PATH As String = "G:\Development Areas\Phase 2 Folder\"
+Public Const EXPORT_FILE_PATH As String = "G:\Development Areas\Phase 2 Folder\Library\"
 Public Const IMPORT_FILE_PATH As String = "G:\Phase2Folder\"
 Public Const VERSION = "V0.0.0"
 Public Const DB_VER = "V0.0.0"
