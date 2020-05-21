@@ -7,6 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
+Option Explicit
 
 '    Const WORKING_DIR = "G:\Development Areas\Phase 2 Folder\WorkingFolder\"
 '    Const MASTER_SHEET = "G:\Development Areas\Phase 2 Folder\"
@@ -34,7 +35,9 @@ Attribute VB_Exposed = True
     Dim FileName As String
     Dim Workingfolder As Files
     Dim WBopen As Boolean
-
+    Dim i As Variant
+    Dim x As String
+    
 Public Sub Handler()
     
     Dim RsltRng As Range
